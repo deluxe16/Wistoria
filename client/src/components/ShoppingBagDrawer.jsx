@@ -40,23 +40,22 @@ export default function ShoppingBagDrawer({ isOpen, onClose, cartData = {}, onUp
     }, 650);
   };
 
-  /* ── - button: update qty → SweetAlert ─────────────────── */
+  /* ── - button: update qty → Toast (matching + notification) ── */
   const handleDecrease = async (item) => {
     const newQty = (item.quantity || 1) - 1;
     await onUpdateQty?.(item.id, newQty);
     if (newQty > 0) {
-      Swal.fire({
-        title: 'Quantity Updated',
-        text: 'Item quantity has been updated.',
-        icon: 'success',
-        confirmButtonText: 'OK',
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2200,
+        timerProgressBar: true,
         background: '#111111',
         color: '#ffffff',
         iconColor: '#c9a56c',
-        confirmButtonColor: '#c9a56c',
-        timer: 2500,
-        timerProgressBar: true,
       });
+      Toast.fire({ icon: 'success', title: 'Item quantity has been updated' });
     }
   };
 
