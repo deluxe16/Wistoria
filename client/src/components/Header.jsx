@@ -24,10 +24,19 @@ export default function Header({
         </button>
       </div>
 
-      {/* 02: WISTORIA LOGO (Centered luxury serif) */}
+      {/* 02: WISTORIA LOGO (Supplied luxury brandmark logo) */}
       <div className="header-col-center">
-        <h1 className="wistoria-brand" id="brand-heading">
-          WISTORIA
+        <h1 
+          className="wistoria-brand" 
+          id="brand-heading"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          title="WISTORIA Maison"
+        >
+          <img 
+            src="/images/wistoria-logo.png" 
+            alt="WISTORIA" 
+            className="wistoria-logo-img" 
+          />
         </h1>
       </div>
 
