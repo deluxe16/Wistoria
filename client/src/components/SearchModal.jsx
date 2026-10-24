@@ -64,6 +64,8 @@ export default function SearchModal({ isOpen, onClose, onAddToCart }) {
     return () => clearTimeout(debounce);
   }, [query, isOpen]);
 
+  if (!isOpen) return null;
+
   return (
     <>
       <div 
@@ -72,7 +74,17 @@ export default function SearchModal({ isOpen, onClose, onAddToCart }) {
       />
       <div className={`search-top-panel ${isOpen ? 'active' : ''}`} aria-label="Search Products">
         <div style={{ width: '100%', maxWidth: '640px', display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
-          <button className="close-x-btn" onClick={onClose} aria-label="Close Search">✕</button>
+          <button 
+            className="close-x-btn" 
+            onClick={onClose} 
+            aria-label="Close Search"
+            id="btn-close-search"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
+              <line x1="5" y1="5" x2="19" y2="19" />
+              <line x1="19" y1="5" x2="5" y2="19" />
+            </svg>
+          </button>
         </div>
 
         <div className="search-field-box">
