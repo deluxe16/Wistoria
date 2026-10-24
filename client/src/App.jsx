@@ -15,10 +15,9 @@ const DEFAULT_ANNOUNCEMENT = {
 };
 
 const DEFAULT_SLIDES = [
-  { id: 1, image: "/images/campaign_sandstone_fringe.jpg", caption: "Wistoria Haute Couture Fringe Collection — Look 01" },
-  { id: 2, image: "/images/campaign_01.jpg", caption: "Wistoria Haute Couture Fringe Collection — Look 02 & 03" },
-  { id: 3, image: "/images/campaign_02.jpg", caption: "Sculptural Eveningwear and Draped Silhouettes" },
-  { id: 4, image: "/images/campaign_03.jpg", caption: "Architectural Virgin Wool Overcoats" }
+  { id: 1, image: "/images/campaign_01.jpg", caption: "Wistoria Haute Couture Fringe Collection — Look 01 & 02" },
+  { id: 2, image: "/images/campaign_02.jpg", caption: "Sculptural Eveningwear and Draped Silhouettes" },
+  { id: 3, image: "/images/campaign_03.jpg", caption: "Architectural Virgin Wool Overcoats" }
 ];
 
 const DEFAULT_MENU = {
@@ -145,7 +144,7 @@ export default function App() {
     const catalog = [
       { id: "prod-01", name: "Cascading Fringe Batwing Dress",     price: 150, image: "/images/product_fringe_dress.jpg",    color: "Ivory White"       },
       { id: "prod-02", name: "Cylindrical Metallic Minaudière",    price: 175, image: "/images/product_cylinder_clutch.jpg", color: "Mirror Silver"     },
-      { id: "prod-03", name: "Draped Silk Fringe Tunic Dress",     price: 165, image: "/images/campaign_sandstone_fringe.jpg", color: "Ivory & Sandstone" },
+      { id: "prod-03", name: "Draped Silk Fringe Tunic Dress",     price: 165, image: "/images/campaign_01.jpg",             color: "Rich Espresso"     },
       { id: "prod-04", name: "Sculptural Liquid Gold Gown",        price: 185, image: "/images/campaign_02.jpg",             color: "Antique Champagne" },
       { id: "prod-05", name: "Architectural Wool Fringe Overcoat", price: 180, image: "/images/campaign_03.jpg",             color: "Obsidian Black"    }
     ];
