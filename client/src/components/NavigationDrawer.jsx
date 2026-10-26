@@ -74,19 +74,13 @@ export default function NavigationDrawer({ isOpen, onClose }) {
           </ul>
         </div>
 
-        {/* Visible campaign image strip downwards (Annotation 03) */}
+        {/* Transparent bottom area allowing the real homepage image to continue seamlessly below the white sheet */}
         <div 
-          className="wistoria-menu-campaign-strip" 
+          className="wistoria-menu-bottom-space" 
           onClick={onClose}
           aria-hidden="true"
           title="Click to close menu"
-        >
-          <img
-            src="/images/campaign_sandstone_fringe.jpg"
-            alt="Maison Wistoria Fringe Collection Campaign"
-            className="wistoria-menu-campaign-img"
-          />
-        </div>
+        />
       </nav>
     </>
   );
