@@ -104,6 +104,7 @@ a {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .slides-track {
@@ -376,117 +377,6 @@ a {
   }
 }
 
-.slide-dots-container {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 45;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  pointer-events: auto;
-}
-
-.slide-dot {
-  width: 32px;
-  height: 24px;
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  flex-shrink: 0;
-  transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.slide-dot.active {
-  width: 48px;
-}
-
-/* Inner bar track */
-.slide-line-bar {
-  display: block;
-  width: 100%;
-  height: 2.5px;
-  background: rgba(255, 255, 255, 0.45);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
-}
-
-/* Animated fill for the active slide */
-.slide-line-fill {
-  display: block;
-  height: 100%;
-  width: 0%;
-  background: #ffffff;
-  border-radius: 2px;
-}
-
-.slide-dot.active .slide-line-fill {
-  width: 100%;
-}
-
-.slide-dot.active .slide-line-fill.animating {
-  animation: slideLineFill linear forwards;
-}
-
-@keyframes slideLineFill {
-  from { width: 0%; }
-  to   { width: 100%; }
-}
-
-/* Non-active dots show a clean semi-translucent bar with shadow */
-.slide-dot:not(.active) .slide-line-bar {
-  background: rgba(255, 255, 255, 0.45);
-}
-
-/* Active dot bar */
-.slide-dot.active .slide-line-bar {
-  background: rgba(255, 255, 255, 0.35);
-}
-
-@media (max-width: 768px) {
-  .hero-container {
-    touch-action: pan-y;
-  }
-
-  .slide-dots-container {
-    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
-    gap: 10px;
-    z-index: 50;
-    pointer-events: auto;
-  }
-
-  .slide-dot {
-    width: 36px;
-    height: 28px;
-  }
-
-  .slide-dot.active {
-    width: 54px;
-  }
-
-  .slide-line-bar {
-    height: 3px;
-    background: rgba(255, 255, 255, 0.55);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
-  }
-
-  .slide-dot:not(.active) .slide-line-bar {
-    background: rgba(255, 255, 255, 0.55);
-  }
-
-  .slide-dot.active .slide-line-bar {
-    background: rgba(255, 255, 255, 0.35);
-  }
-}
 
 /* DRAWERS & MODALS */
 .backdrop-dim {
@@ -655,8 +545,7 @@ a {
 }
 
 /* Hide hero controls when menu is open so homepage strip downwards is serene */
-body.wistoria-menu-open .slide-arrow-btn,
-body.wistoria-menu-open .slide-dots-container {
+body.wistoria-menu-open .slide-arrow-btn {
   opacity: 0 !important;
   pointer-events: none !important;
   transition: opacity 0.25s ease;

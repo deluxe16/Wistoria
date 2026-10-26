@@ -15,10 +15,6 @@ export default function HeroSlideshow({ slides }) {
     setCurrentIndex((prev) => (prev === slideCount - 1 ? 0 : prev + 1));
   }, [slideCount]);
 
-  const goToSlide = (idx) => {
-    setCurrentIndex(idx);
-  };
-
   // Auto-advance slideshow with timer, paused on user hover
   useEffect(() => {
     if (slideCount <= 1 || isPaused) return;
@@ -95,39 +91,6 @@ export default function HeroSlideshow({ slides }) {
         </svg>
       </button>
 
-      {/* Horizontal Line Slide Indicators showing current and upcoming images */}
-      <div 
-        className="slide-lines-container slide-dots-container"
-        role="tablist"
-        aria-label="Campaign Look Navigation"
-      >
-        {slides.map((slide, i) => {
-          const isActive = i === currentIndex;
-          const isNext = i === (currentIndex + 1) % slides.length;
-          return (
-            <button
-              key={slide.id || i}
-              type="button"
-              role="tab"
-              aria-selected={isActive}
-              className={`slide-line-btn slide-dot ${isActive ? 'active' : ''} ${isNext ? 'next-slide-indicator' : ''}`}
-              onClick={() => goToSlide(i)}
-              aria-label={`Look 0${i + 1} of 0${slides.length}${isActive ? ' (current look)' : ' (click to view)'}`}
-              title={`Look 0${i + 1}${isActive ? ' (Current)' : ' (Next look)'}`}
-            >
-              <span className="slide-line-bar">
-                <span 
-                  key={isActive ? `fill-${currentIndex}` : `idle-${i}`}
-                  className={`slide-line-fill ${isActive && !isPaused ? 'animating' : ''}`}
-                  style={{
-                    animationDuration: `${SLIDE_DURATION}ms`
-                  }}
-                />
-              </span>
-            </button>
-          );
-        })}
-      </div>
     </div>
   );
 }
