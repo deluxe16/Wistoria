@@ -5,8 +5,6 @@ const SLIDE_DURATION = 6000; // 6 seconds per slide
 export default function HeroSlideshow({ slides }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
   const slideCount = slides?.length || 0;
 
   const prevSlide = useCallback(() => {
@@ -21,7 +19,7 @@ export default function HeroSlideshow({ slides }) {
     setCurrentIndex(idx);
   };
 
-  // Auto-advance slideshow with timer, paused on user hover/touch
+  // Auto-advance slideshow with timer, paused on user hover
   useEffect(() => {
     if (slideCount <= 1 || isPaused) return;
     const timer = setInterval(() => {
@@ -40,37 +38,11 @@ export default function HeroSlideshow({ slides }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prevSlide, nextSlide]);
 
-  // Touch swipe support (allow swipe on mobile)
-  const handleTouchStart = (e) => {
-    setIsPaused(true);
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    setIsPaused(false);
-    if (!touchStartX.current || !touchEndX.current) return;
-    const distance = touchStartX.current - touchEndX.current;
-    if (distance > 50) {
-      nextSlide();
-    } else if (distance < -50) {
-      prevSlide();
-    }
-    touchStartX.current = 0;
-    touchEndX.current = 0;
-  };
-
   if (!slides || slides.length === 0) return null;
 
   return (
     <div 
       className="hero-container"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Wistoria Campaign Slideshow"
@@ -145,6 +117,7 @@ export default function HeroSlideshow({ slides }) {
             >
               <span className="slide-line-bar">
                 <span 
+                  key={isActive ? `fill-${currentIndex}` : `idle-${i}`}
                   className={`slide-line-fill ${isActive && !isPaused ? 'animating' : ''}`}
                   style={{
                     animationDuration: `${SLIDE_DURATION}ms`
