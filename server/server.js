@@ -13,9 +13,10 @@ const slides = [
     id: 1,
     title: "WISTORIA",
     collection: "RUNWAY WINTER / HAUTE COUTURE",
-    caption: "The Fringe Collection — Look 01 & 02",
+    caption: "Cascading Silk Fringe Look — Haute Couture 2026",
     image: "/images/campaign_01.jpg",
     mobileImage: "/images/campaign_01.jpg",
+    objectPosition: "center 18%",
     linkText: "EXPLORE THE CAMPAIGN",
     linkUrl: "#campaign"
   },
@@ -23,21 +24,23 @@ const slides = [
     id: 2,
     title: "WISTORIA",
     collection: "SCULPTURAL DRAPERY",
-    caption: "Architectural Silhouettes in Silk & Gold",
+    caption: "Sculptural Draped Eveningwear in Antique White",
     image: "/images/campaign_02.jpg",
     mobileImage: "/images/campaign_02.jpg",
+    objectPosition: "center 45%",
     linkText: "VIEW COLLECTION",
     linkUrl: "#drapery"
   },
   {
     id: 3,
     title: "WISTORIA",
-    collection: "TAILORING & WOOL",
-    caption: "Minimalist Structure with Cascading Movement",
+    collection: "ARTISANAL EDITIONS",
+    caption: "Floral Embroidered Caftan with Artisanal Fringe",
     image: "/images/campaign_03.jpg",
     mobileImage: "/images/campaign_03.jpg",
-    linkText: "DISCOVER TAILORING",
-    linkUrl: "#tailoring"
+    objectPosition: "center 22%",
+    linkText: "DISCOVER EDITIONS",
+    linkUrl: "#editions"
   }
 ];
 

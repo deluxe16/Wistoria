@@ -29,7 +29,7 @@ const specs = [
   {
     number: "06",
     label: "SLIDESHOW",
-    instruction: "Left and right arrows change campaign images; allow swipe on mobile."
+    instruction: "Left and right arrows change campaign images; horizontal indicator lines clearly indicate active and next images; allow swipe on mobile."
   },
   {
     number: "07",

@@ -1,19 +1,36 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+
+const SLIDE_DURATION = 6000; // 6 seconds per slide
 
 export default function HeroSlideshow({ slides }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const slideCount = slides?.length || 0;
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? slideCount - 1 : prev - 1));
+  }, [slideCount]);
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev === slideCount - 1 ? 0 : prev + 1));
+  }, [slideCount]);
+
+  const goToSlide = (idx) => {
+    setCurrentIndex(idx);
   };
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  };
+  // Auto-advance slideshow with timer, paused on user hover/touch
+  useEffect(() => {
+    if (slideCount <= 1 || isPaused) return;
+    const timer = setInterval(() => {
+      nextSlide();
+    }, SLIDE_DURATION);
+    return () => clearInterval(timer);
+  }, [slideCount, isPaused, nextSlide]);
 
-  // Keyboard navigation
+  // Keyboard navigation (ArrowLeft / ArrowRight)
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowLeft') prevSlide();
@@ -21,10 +38,11 @@ export default function HeroSlideshow({ slides }) {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [slides.length]);
+  }, [prevSlide, nextSlide]);
 
-  // Touch swipe support (06: allow swipe on mobile)
+  // Touch swipe support (allow swipe on mobile)
   const handleTouchStart = (e) => {
+    setIsPaused(true);
     touchStartX.current = e.targetTouches[0].clientX;
   };
 
@@ -33,6 +51,7 @@ export default function HeroSlideshow({ slides }) {
   };
 
   const handleTouchEnd = () => {
+    setIsPaused(false);
     if (!touchStartX.current || !touchEndX.current) return;
     const distance = touchStartX.current - touchEndX.current;
     if (distance > 50) {
@@ -52,6 +71,8 @@ export default function HeroSlideshow({ slides }) {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
       aria-label="Wistoria Campaign Slideshow"
     >
       <div className="slides-track">
@@ -59,12 +80,16 @@ export default function HeroSlideshow({ slides }) {
           <div 
             key={slide.id || index}
             className={`slide-item ${index === currentIndex ? 'active' : ''}`}
+            aria-hidden={index !== currentIndex}
           >
             <div className="slide-image-box">
               <img 
                 src={slide.image} 
-                alt={slide.caption || "Wistoria Haute Couture Campaign"} 
+                alt={slide.caption || `Wistoria Haute Couture Look ${index + 1}`} 
                 className="slide-img"
+                style={{
+                  objectPosition: slide.objectPosition || 'center 25%'
+                }}
               />
               <div className="hero-overlay-shadow"></div>
             </div>
@@ -74,6 +99,7 @@ export default function HeroSlideshow({ slides }) {
 
       {/* 06: Left Arrow */}
       <button 
+        type="button"
         className="slide-arrow-btn left" 
         onClick={prevSlide}
         aria-label="Previous Slide"
@@ -86,6 +112,7 @@ export default function HeroSlideshow({ slides }) {
 
       {/* 06: Right Arrow */}
       <button 
+        type="button"
         className="slide-arrow-btn right" 
         onClick={nextSlide}
         aria-label="Next Slide"
@@ -96,17 +123,39 @@ export default function HeroSlideshow({ slides }) {
         </svg>
       </button>
 
-      {/* Pagination indicators */}
-      <div className="slide-dots-container">
-        {slides.map((_, i) => (
-          <span 
-            key={i} 
-            className={`slide-dot ${i === currentIndex ? 'active' : ''}`}
-            onClick={() => setCurrentIndex(i)}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
+      {/* Horizontal Line Slide Indicators showing current and upcoming images */}
+      <div 
+        className="slide-lines-container slide-dots-container"
+        role="tablist"
+        aria-label="Campaign Look Navigation"
+      >
+        {slides.map((slide, i) => {
+          const isActive = i === currentIndex;
+          const isNext = i === (currentIndex + 1) % slides.length;
+          return (
+            <button
+              key={slide.id || i}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              className={`slide-line-btn slide-dot ${isActive ? 'active' : ''} ${isNext ? 'next-slide-indicator' : ''}`}
+              onClick={() => goToSlide(i)}
+              aria-label={`Look 0${i + 1} of 0${slides.length}${isActive ? ' (current look)' : ' (click to view)'}`}
+              title={`Look 0${i + 1}${isActive ? ' (Current)' : ' (Next look)'}`}
+            >
+              <span className="slide-line-bar">
+                <span 
+                  className={`slide-line-fill ${isActive && !isPaused ? 'animating' : ''}`}
+                  style={{
+                    animationDuration: `${SLIDE_DURATION}ms`
+                  }}
+                />
+              </span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
 }
+

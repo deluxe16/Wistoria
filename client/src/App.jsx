@@ -15,9 +15,24 @@ const DEFAULT_ANNOUNCEMENT = {
 };
 
 const DEFAULT_SLIDES = [
-  { id: 1, image: "/images/campaign_01.jpg", caption: "Wistoria Haute Couture Fringe Collection — Look 01 & 02" },
-  { id: 2, image: "/images/campaign_02.jpg", caption: "Sculptural Eveningwear and Draped Silhouettes" },
-  { id: 3, image: "/images/campaign_03.jpg", caption: "Architectural Virgin Wool Overcoats" }
+  { 
+    id: 1, 
+    image: "/images/campaign_01.jpg", 
+    caption: "Wistoria Haute Couture — Cascading Silk Fringe Look",
+    objectPosition: "center 18%"
+  },
+  { 
+    id: 2, 
+    image: "/images/campaign_02.jpg", 
+    caption: "Sculptural Draped Eveningwear in Antique White",
+    objectPosition: "center 45%"
+  },
+  { 
+    id: 3, 
+    image: "/images/campaign_03.jpg", 
+    caption: "Floral Embroidered Caftan with Artisanal Fringe",
+    objectPosition: "center 22%"
+  }
 ];
 
 const DEFAULT_MENU = {
