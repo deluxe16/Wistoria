@@ -383,6 +383,13 @@ a {
   gap: 10px;
 }
 
+@media (max-width: 768px) {
+  .slide-dots-container {
+    bottom: 20px;
+    gap: 8px;
+  }
+}
+
 .slide-dot {
   width: 30px;
   height: 20px;
@@ -441,12 +448,16 @@ a {
 
 @media (max-width: 768px) {
   .slide-dot {
-    width: 24px;
-    height: 20px;
+    width: 32px;
+    height: 24px;
   }
 
   .slide-dot.active {
-    width: 36px;
+    width: 52px;
+  }
+
+  .slide-line-bar {
+    height: 3px;
   }
 }
 
