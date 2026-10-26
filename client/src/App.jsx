@@ -19,19 +19,19 @@ const DEFAULT_SLIDES = [
     id: 1, 
     image: "/images/campaign_01.jpg", 
     caption: "Wistoria Haute Couture — Cascading Silk Fringe Look",
-    objectPosition: "center 18%"
+    objectPosition: "center top"
   },
   { 
     id: 2, 
     image: "/images/campaign_02.jpg", 
     caption: "Sculptural Draped Eveningwear in Antique White",
-    objectPosition: "center 45%"
+    objectPosition: "center top"
   },
   { 
     id: 3, 
     image: "/images/campaign_03.jpg", 
     caption: "Floral Embroidered Caftan with Artisanal Fringe",
-    objectPosition: "center 22%"
+    objectPosition: "center top"
   }
 ];
 
