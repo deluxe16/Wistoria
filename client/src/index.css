@@ -136,14 +136,14 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   display: block;
 }
 
 @media (max-width: 768px) {
   .slide-img {
     object-fit: cover;
-    object-position: center top;
+    object-position: center center;
   }
 }
 
@@ -385,15 +385,69 @@ a {
 
 .slide-dot {
   width: 30px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.35);
+  height: 20px;
+  background: transparent;
   cursor: pointer;
-  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  flex-shrink: 0;
 }
 
 .slide-dot.active {
-  background: #ffffff;
   width: 45px;
+}
+
+/* Inner bar track */
+.slide-line-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Animated fill for the active slide */
+.slide-line-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: #ffffff;
+  border-radius: 1px;
+}
+
+.slide-line-fill.animating {
+  animation: slideLineFill linear forwards;
+}
+
+@keyframes slideLineFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* Non-active dots show a full dim bar */
+.slide-dot:not(.active) .slide-line-bar {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Active dot bar turns fully white when not animating */
+.slide-dot.active .slide-line-bar {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .slide-dot {
+    width: 24px;
+    height: 20px;
+  }
+
+  .slide-dot.active {
+    width: 36px;
+  }
 }
 
 /* DRAWERS & MODALS */
@@ -580,10 +634,10 @@ body.wistoria-menu-open .slide-dots-container {
   }
 
   .wistoria-menu-nav {
-    padding-top: 68px;
-    padding-bottom: 28px;
+    padding-top: 32px;
+    padding-bottom: 20px;
     padding-left: 20px;
-    gap: 32px;
+    gap: 28px;
   }
 
   .wistoria-menu-link {
@@ -763,6 +817,36 @@ body.wistoria-menu-open .slide-dots-container {
   padding-top: 18px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .bag-side-drawer {
+    padding: 16px 18px 20px 18px;
+  }
+
+  .drawer-top-row {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+  }
+
+  .shipping-calc-card {
+    padding: 10px 14px;
+    margin-bottom: 14px;
+  }
+
+  .cart-items-wrap {
+    max-height: 38vh;
+  }
+
+  .bag-bottom-panel {
+    padding-top: 14px;
+    margin-top: 6px;
+  }
+
+  .subtotal-line {
+    margin-bottom: 12px;
+  }
 }
 
 .subtotal-line {
