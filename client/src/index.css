@@ -2,6 +2,7 @@
   --font-serif: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
   --font-display: 'Cinzel', serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-garamond: 'Cormorant Garamond', Garamond, Georgia, serif;
 
   --color-black: #050505;
   --color-dark: #111111;
@@ -1851,6 +1852,7 @@ body.shop-view-active {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: var(--font-garamond);
 }
 
 .shop-main-content {
@@ -1881,10 +1883,10 @@ body.shop-view-active {
 }
 
 .shop-intro-title {
-  font-family: var(--font-serif);
-  font-size: 24px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
+  font-family: var(--font-garamond);
+  font-size: 26px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #111111;
   margin: 0 0 10px 0;
@@ -1893,29 +1895,29 @@ body.shop-view-active {
 
 @media (min-width: 769px) {
   .shop-intro-title {
-    font-size: 26px;
-    letter-spacing: 0.09em;
+    font-size: 30px;
+    letter-spacing: 0.12em;
     margin-bottom: 12px;
   }
 }
 
 .shop-intro-description {
-  font-family: var(--font-sans);
-  font-size: 13px;
+  font-family: var(--font-garamond);
+  font-size: 15px;
   line-height: 1.55;
   color: #4a4a4a;
-  max-width: 360px;
+  max-width: 380px;
   margin: 0 auto;
   font-weight: 300;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.02em;
 }
 
 @media (min-width: 769px) {
   .shop-intro-description {
-    font-size: 13.5px;
+    font-size: 16px;
     line-height: 1.6;
-    max-width: 420px;
-    color: #444444;
+    max-width: 440px;
+    color: #3a3a3a;
   }
 }
 
@@ -1994,26 +1996,26 @@ body.shop-view-active {
 }
 
 .shop-product-title {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 400;
+  font-family: var(--font-garamond);
+  font-size: 17px;
+  font-weight: 300;
   line-height: 1.35;
   color: #111111;
   margin: 0 0 4px 0;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
 }
 
 @media (min-width: 769px) {
   .shop-product-title {
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 6px;
   }
 }
 
 .shop-product-price {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
+  font-family: var(--font-garamond);
+  font-size: 16px;
+  font-weight: 300;
   line-height: 1.4;
   color: #111111;
   margin: 0 0 10px 0;
@@ -2021,7 +2023,7 @@ body.shop-view-active {
 
 @media (min-width: 769px) {
   .shop-product-price {
-    font-size: 15px;
+    font-size: 17px;
     margin-bottom: 12px;
   }
 }
@@ -2033,10 +2035,10 @@ body.shop-view-active {
 }
 
 .shop-add-to-bag-link {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-family: var(--font-garamond);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #111111;
   background: transparent;
@@ -2067,6 +2069,8 @@ body.shop-view-active {
   padding: 48px 24px;
   margin-top: auto;
   width: 100%;
+  font-family: var(--font-garamond);
+  font-weight: 300;
 }
 
 .shop-footer-inner {
@@ -2088,16 +2092,18 @@ body.shop-view-active {
 }
 
 .footer-brand-title {
-  font-family: var(--font-serif);
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  font-weight: 500;
+  font-family: var(--font-garamond);
+  font-size: 16px;
+  letter-spacing: 0.16em;
+  font-weight: 400;
   color: #111111;
 }
 
 .footer-brand-tagline {
-  font-size: 11px;
+  font-family: var(--font-garamond);
+  font-size: 13px;
   letter-spacing: 0.06em;
+  font-weight: 300;
   color: #888888;
   margin-top: 4px;
 }
@@ -2110,9 +2116,10 @@ body.shop-view-active {
 }
 
 .shop-footer-links a {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-family: var(--font-garamond);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #555555;
   transition: color 0.2s ease;
@@ -2123,7 +2130,9 @@ body.shop-view-active {
 }
 
 .shop-footer-copyright {
-  font-size: 10px;
+  font-family: var(--font-garamond);
+  font-size: 12px;
+  font-weight: 300;
   letter-spacing: 0.05em;
   color: #999999;
 }
