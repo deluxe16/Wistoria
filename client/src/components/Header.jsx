@@ -4,10 +4,23 @@ export default function Header({
   onOpenMenu, 
   onOpenSearch, 
   onOpenBag, 
-  cartCount 
+  cartCount,
+  theme = "overlay",
+  onLogoClick
 }) {
+  const isLight = theme === "light";
+
+  const handleBrandClick = () => {
+    if (onLogoClick) {
+      onLogoClick();
+    } else {
+      window.location.hash = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <header className="hero-header">
+    <header className={`hero-header ${isLight ? 'header-light' : ''}`}>
       {/* 03: MENU (Fine hamburger icon) */}
       <div className="header-col-left">
         <button 
@@ -29,11 +42,11 @@ export default function Header({
         <h1 
           className="wistoria-brand" 
           id="brand-heading"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={handleBrandClick}
           title="WISTORIA Maison"
         >
           <img 
-            src="/images/wistoria-logo.png" 
+            src={isLight ? "/images/wistoria-logo-black.png" : "/images/wistoria-logo.png"} 
             alt="WISTORIA" 
             className="wistoria-logo-img" 
           />

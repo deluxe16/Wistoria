@@ -14,9 +14,9 @@ const slides = [
     title: "WISTORIA",
     collection: "RUNWAY WINTER / HAUTE COUTURE",
     caption: "Cascading Silk Fringe Look — Haute Couture 2026",
-    image: "/images/campaign_01.jpg",
-    mobileImage: "/images/campaign_01.jpg",
-    objectPosition: "center 18%",
+    image: "/images/homepage_slide_1.png",
+    mobileImage: "/images/homepage_slide_1.png",
+    objectPosition: "center center",
     linkText: "EXPLORE THE CAMPAIGN",
     linkUrl: "#campaign"
   },
@@ -25,9 +25,9 @@ const slides = [
     title: "WISTORIA",
     collection: "SCULPTURAL DRAPERY",
     caption: "Sculptural Draped Eveningwear in Antique White",
-    image: "/images/campaign_02.jpg",
-    mobileImage: "/images/campaign_02.jpg",
-    objectPosition: "center 45%",
+    image: "/images/homepage_slide_2.png",
+    mobileImage: "/images/homepage_slide_2.png",
+    objectPosition: "center center",
     linkText: "VIEW COLLECTION",
     linkUrl: "#drapery"
   },
@@ -36,9 +36,9 @@ const slides = [
     title: "WISTORIA",
     collection: "ARTISANAL EDITIONS",
     caption: "Floral Embroidered Caftan with Artisanal Fringe",
-    image: "/images/campaign_03.jpg",
-    mobileImage: "/images/campaign_03.jpg",
-    objectPosition: "center 22%",
+    image: "/images/homepage_slide_3.png",
+    mobileImage: "/images/homepage_slide_3.png",
+    objectPosition: "center center",
     linkText: "DISCOVER EDITIONS",
     linkUrl: "#editions"
   }
@@ -46,6 +46,38 @@ const slides = [
 
 // Product catalog
 const products = [
+  {
+    id: "prod-fringe-top-1",
+    name: "Fringe Top",
+    color: "Ivory White",
+    category: "Ready-to-Wear",
+    subcategory: "Tops",
+    price: 200,
+    currency: "GBP",
+    currencySymbol: "£",
+    badge: "Runway Exclusive",
+    image: "/images/fringe_top.jpg",
+    description: "Deep plunging halter neck top in fluid ivory silk satin with cascading hand-knotted fringe cords.",
+    details: ["100% Fluid Silk Satin", "Artisanal hand-knotted fringe cords", "Deep V-neckline with halter strap", "Dry clean only", "Made in France"],
+    sizes: ["FR 34", "FR 36", "FR 38", "FR 40"],
+    inStock: true
+  },
+  {
+    id: "prod-fringe-top-2",
+    name: "Fringe Top",
+    color: "Ivory White",
+    category: "Ready-to-Wear",
+    subcategory: "Tops",
+    price: 200,
+    currency: "GBP",
+    currencySymbol: "£",
+    badge: "Runway Exclusive",
+    image: "/images/fringe_top.jpg",
+    description: "Deep plunging halter neck top in fluid ivory silk satin with cascading hand-knotted fringe cords.",
+    details: ["100% Fluid Silk Satin", "Artisanal hand-knotted fringe cords", "Deep V-neckline with halter strap", "Dry clean only", "Made in France"],
+    sizes: ["FR 34", "FR 36", "FR 38", "FR 40"],
+    inStock: true
+  },
   {
     id: "prod-01",
     name: "Cascading Fringe Batwing Dress",

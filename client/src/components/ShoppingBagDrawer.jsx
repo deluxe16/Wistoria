@@ -144,7 +144,7 @@ export default function ShoppingBagDrawer({ isOpen, onClose, cartData = {}, onUp
                         </button>
                       </div>
                       <span className="cart-prod-price">
-                        ${((item.price || 0) * (item.quantity || 1)).toLocaleString()}
+                        {item.currencySymbol || cartData?.currencySymbol || '$'}{((item.price || 0) * (item.quantity || 1)).toLocaleString()}
                       </span>
                     </div>
                   </div>
@@ -158,7 +158,7 @@ export default function ShoppingBagDrawer({ isOpen, onClose, cartData = {}, onUp
           <div className="bag-bottom-panel">
             <div className="subtotal-line">
               <span className="subtotal-txt">Subtotal</span>
-              <span className="subtotal-val">${safeSubtotal.toLocaleString()}</span>
+              <span className="subtotal-val">{cartData?.currencySymbol || '$'}{safeSubtotal.toLocaleString()}</span>
             </div>
             <button
               className="bag-checkout-btn"

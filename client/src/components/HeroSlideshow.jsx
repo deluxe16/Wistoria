@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
-const SLIDE_DURATION = 6000; // 6 seconds per slide
+const SLIDE_DURATION = 3000; // 3 seconds per slide
 
 export default function HeroSlideshow({ slides }) {
   const [currentIndex, setCurrentIndex] = useState(0);

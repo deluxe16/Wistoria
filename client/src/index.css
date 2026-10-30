@@ -14,7 +14,7 @@
   --color-gold: #c9a56c;
   --color-gold-hover: #d8b67f;
 
-  --announcement-bg: #ffffff;
+  --announcement-bg: #f2f2f4;
   --announcement-text: #1a1a1a;
 
   --announcement-height: 38px;
@@ -233,26 +233,30 @@ a {
 }
 
 .wistoria-brand:hover {
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .wistoria-logo-img {
-  height: 28px;
+  height: 44px;
   width: auto;
-  max-width: 220px;
+  max-width: 320px;
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.6));
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: auto;
-  transition: transform 0.25s ease;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1.2);
+}
+
+.wistoria-brand:hover .wistoria-logo-img {
+  transform: scale(1.06);
 }
 
 @media (max-width: 768px) {
   .wistoria-logo-img {
-    height: 23px;
-    max-width: 175px;
+    height: 33px;
+    max-width: 235px;
   }
 }
 
@@ -267,12 +271,30 @@ a {
   color: var(--color-white);
   cursor: pointer;
   position: relative;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2), opacity 0.2s ease;
 }
 
 .icon-action-btn:hover {
-  transform: scale(1.08);
-  opacity: 0.85;
+  transform: scale(1.18);
+  opacity: 1;
+}
+
+/* Shopping Bag hover effect (gets bigger on hover) */
+#btn-cart-toggle {
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2), opacity 0.2s ease;
+}
+
+#btn-cart-toggle:hover {
+  transform: scale(1.3);
+  opacity: 1;
+}
+
+#btn-cart-toggle .fine-icon-svg {
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2);
+}
+
+#btn-cart-toggle:hover .fine-icon-svg {
+  transform: scale(1.15);
 }
 
 .fine-hamburger {
@@ -328,7 +350,12 @@ a {
   background: transparent;
   color: #ffffff;
   cursor: pointer;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2), opacity 0.25s ease;
+}
+
+.slide-arrow-btn:hover {
+  transform: translateY(-50%) scale(1.35);
+  opacity: 1;
 }
 
 .slide-arrow-btn.left {
@@ -346,15 +373,15 @@ a {
   stroke-width: 1.3;
   fill: none;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
-  transition: transform 0.25s ease;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2);
 }
 
 .slide-arrow-btn.left:hover .arrow-chevron-svg {
-  transform: translateX(-4px);
+  transform: scale(1.22) translateX(-2px);
 }
 
 .slide-arrow-btn.right:hover .arrow-chevron-svg {
-  transform: translateX(4px);
+  transform: scale(1.22) translateX(2px);
 }
 
 @media (max-width: 768px) {
@@ -460,11 +487,61 @@ a {
 
 .wistoria-menu-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   min-height: 36px;
   flex-shrink: 0;
+}
+
+.wistoria-menu-back-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+  padding: 6px 4px;
+  margin: -4px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  gap: 6px;
+  font-family: var(--font-sans);
+  text-decoration: none;
+  outline: none;
+  line-height: 1;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2), opacity 0.2s ease;
+}
+
+.wistoria-menu-back-btn:hover {
+  transform: scale(1.22) translateX(-3px);
+  opacity: 0.75;
+}
+
+.menu-back-chevron-svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.wistoria-menu-back-btn:hover .menu-back-chevron-svg {
+  transform: translateX(-2px);
+}
+
+.menu-back-label {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .wistoria-menu-close-btn {
@@ -477,13 +554,13 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s ease, transform 0.25s ease;
+  transition: opacity 0.2s ease, transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2);
   outline: none;
 }
 
 .wistoria-menu-close-btn:hover {
-  opacity: 0.5;
-  transform: rotate(90deg);
+  opacity: 0.7;
+  transform: scale(1.25) rotate(90deg);
 }
 
 .wistoria-menu-nav {
@@ -1701,4 +1778,352 @@ body.wistoria-menu-open .slide-arrow-btn {
     max-width: 100vw;
     padding: 20px 18px;
   }
+}
+
+
+/* ============================================================
+   REFERENCE 03A: SHOP PAGE (MOBILE & DESKTOP VIEWS)
+   ============================================================ */
+
+/* Container adjustment when shop view is active */
+.app-container.shop-mode {
+  height: auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #ffffff;
+}
+
+body.shop-view-active {
+  background-color: #ffffff !important;
+  color: #111111;
+  overflow-y: auto;
+}
+
+/* Light header for Shop Page (Annotation 01: Brand Header) */
+.hero-header.header-light {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  color: #111111;
+  border-bottom: none;
+  padding: 16px 20px;
+  z-index: 80;
+  box-shadow: none;
+}
+
+@media (min-width: 769px) {
+  .hero-header.header-light {
+    padding: 20px 48px;
+  }
+}
+
+.hero-header.header-light .fine-line {
+  background-color: #111111;
+  box-shadow: none;
+}
+
+.hero-header.header-light .fine-icon-svg {
+  stroke: #111111;
+  filter: none;
+}
+
+.hero-header.header-light .wistoria-logo-img {
+  filter: none;
+}
+
+.hero-header.header-light .icon-action-btn {
+  color: #111111;
+}
+
+.hero-header.header-light .bag-badge {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+/* Shop Page Layout */
+.shop-page-wrapper {
+  background-color: #ffffff;
+  color: #111111;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shop-main-content {
+  flex: 1;
+  width: 100%;
+}
+
+/* 02: COLLECTION INTRO (Reference 03B: Small, light heading and centred introductory text) */
+.shop-intro-section {
+  text-align: center;
+  padding: 36px 20px 20px 20px;
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 769px) {
+  .shop-intro-section {
+    padding: 44px 24px 28px 24px;
+  }
+}
+
+.shop-intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-intro-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #111111;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+}
+
+@media (min-width: 769px) {
+  .shop-intro-title {
+    font-size: 26px;
+    letter-spacing: 0.09em;
+    margin-bottom: 12px;
+  }
+}
+
+.shop-intro-description {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: #4a4a4a;
+  max-width: 360px;
+  margin: 0 auto;
+  font-weight: 300;
+  letter-spacing: 0.015em;
+}
+
+@media (min-width: 769px) {
+  .shop-intro-description {
+    font-size: 13.5px;
+    line-height: 1.6;
+    max-width: 420px;
+    color: #444444;
+  }
+}
+
+/* 03: PRODUCT GRID (Reference 03B: Two centred portrait cards) */
+.shop-grid-section {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 8px 16px 64px 16px;
+}
+
+@media (min-width: 769px) {
+  .shop-grid-section {
+    max-width: 680px;
+    padding: 12px 24px 88px 24px;
+  }
+}
+
+.shop-products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* REFERENCE 03B: Two centred portrait cards */
+  column-gap: 14px;
+  row-gap: 36px;
+  width: 100%;
+  justify-content: center;
+}
+
+@media (min-width: 769px) {
+  .shop-products-grid {
+    column-gap: 26px;
+    row-gap: 48px;
+  }
+}
+
+/* Product Card */
+.shop-product-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: left;
+}
+
+/* 03: Shorter 4:5 image tiles; no save icons */
+.shop-product-media-box {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background-color: #f7f7f6;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .shop-product-card:hover .shop-product-img {
+    transform: scale(1.035);
+  }
+}
+
+/* Product Meta Info */
+.shop-product-meta {
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.shop-product-title {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #111111;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 769px) {
+  .shop-product-title {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+}
+
+.shop-product-price {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #111111;
+  margin: 0 0 10px 0;
+}
+
+@media (min-width: 769px) {
+  .shop-product-price {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+}
+
+/* 04: ADD TO BAG (Simple text link beneath each price) */
+.shop-product-action-wrapper {
+  display: inline-block;
+  margin-top: 2px;
+}
+
+.shop-add-to-bag-link {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #111111;
+  background: transparent;
+  border: none;
+  padding: 0 0 2px 0;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid #111111;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  line-height: 1.2;
+}
+
+.shop-add-to-bag-link:hover {
+  opacity: 0.65;
+}
+
+.shop-add-to-bag-link.adding {
+  color: #c9a56c;
+  border-bottom-color: #c9a56c;
+}
+
+/* Shop Footer */
+.shop-page-footer {
+  background-color: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 48px 24px;
+  margin-top: auto;
+  width: 100%;
+}
+
+.shop-footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+
+@media (min-width: 769px) {
+  .shop-footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+}
+
+.footer-brand-title {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+  color: #111111;
+}
+
+.footer-brand-tagline {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #888888;
+  margin-top: 4px;
+}
+
+.shop-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.shop-footer-links a {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #555555;
+  transition: color 0.2s ease;
+}
+
+.shop-footer-links a:hover {
+  color: #111111;
+}
+
+.shop-footer-copyright {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: #999999;
 }

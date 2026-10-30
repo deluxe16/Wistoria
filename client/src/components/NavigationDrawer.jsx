@@ -43,8 +43,35 @@ export default function NavigationDrawer({ isOpen, onClose }) {
       >
         {/* Pure white menu sheet (stops at ~72vh, leaving campaign strip downwards) */}
         <div className="wistoria-menu-sheet">
-          {/* Top header row inside menu: Close button (X) aligned to top-right */}
+          {/* Top header row inside menu: < home on top-left, Close button (X) on top-right */}
           <div className="wistoria-menu-header">
+            <button 
+              className="wistoria-menu-back-btn" 
+              onClick={() => {
+                window.location.hash = '';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                onClose();
+              }} 
+              aria-label="Home"
+              id="btn-menu-home"
+            >
+              <svg 
+                className="menu-back-chevron-svg" 
+                width="13" 
+                height="13" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="1.9" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+              <span className="menu-back-label">home</span>
+            </button>
+
             <button 
               className="wistoria-menu-close-btn" 
               onClick={onClose} 

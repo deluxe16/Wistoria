@@ -6,6 +6,8 @@ import NavigationDrawer from './components/NavigationDrawer';
 import SearchModal from './components/SearchModal';
 import ShoppingBagDrawer from './components/ShoppingBagDrawer';
 import CheckoutModal from './components/CheckoutModal';
+import ShopPage from './pages/ShopPage';
+import { SHOP_PRODUCTS } from './data/shopProducts';
 
 const DEFAULT_ANNOUNCEMENT = {
   message: "Free shipping for orders over $300",
@@ -17,21 +19,21 @@ const DEFAULT_ANNOUNCEMENT = {
 const DEFAULT_SLIDES = [
   { 
     id: 1, 
-    image: "/images/campaign_01.jpg", 
+    image: "/images/homepage_slide_1.png", 
     caption: "Wistoria Haute Couture — Cascading Silk Fringe Look",
-    objectPosition: "center top"
+    objectPosition: "center center"
   },
   { 
     id: 2, 
-    image: "/images/campaign_02.jpg", 
+    image: "/images/homepage_slide_2.png", 
     caption: "Sculptural Draped Eveningwear in Antique White",
-    objectPosition: "center top"
+    objectPosition: "center center"
   },
   { 
     id: 3, 
-    image: "/images/campaign_03.jpg", 
+    image: "/images/homepage_slide_3.png", 
     caption: "Floral Embroidered Caftan with Artisanal Fringe",
-    objectPosition: "center top"
+    objectPosition: "center center"
   }
 ];
 
@@ -105,6 +107,28 @@ export default function App() {
   const [isBagOpen,      setIsBagOpen]      = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
+  // Hash-based routing to support #shop
+  const [currentHash, setCurrentHash] = useState(() => window.location.hash || '');
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash || '');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const isShopView = currentHash === '#shop' || currentHash.startsWith('#shop');
+
+  useEffect(() => {
+    if (isShopView) {
+      document.body.classList.add('shop-view-active');
+      window.scrollTo(0, 0);
+    } else {
+      document.body.classList.remove('shop-view-active');
+    }
+  }, [isShopView]);
+
   /* ── Fetch backend data ─────────────────────────────────── */
   useEffect(() => {
     fetch('/api/announcement')
@@ -140,7 +164,10 @@ export default function App() {
   };
 
   /* ── Add to cart ────────────────────────────────────────── */
-  const handleAddToCart = async (productId) => {
+  const handleAddToCart = async (productOrId) => {
+    const isObj = typeof productOrId === 'object' && productOrId !== null;
+    const productId = isObj ? productOrId.id : productOrId;
+
     try {
       const res = await fetch('/api/cart', {
         method: 'POST',
@@ -157,30 +184,31 @@ export default function App() {
 
     // Client fallback
     const catalog = [
-      { id: "prod-01", name: "Cascading Fringe Batwing Dress",     price: 150, image: "/images/product_fringe_dress.jpg",    color: "Ivory White"       },
-      { id: "prod-02", name: "Cylindrical Metallic Minaudière",    price: 175, image: "/images/product_cylinder_clutch.jpg", color: "Mirror Silver"     },
-      { id: "prod-03", name: "Draped Silk Fringe Tunic Dress",     price: 165, image: "/images/campaign_01.jpg",             color: "Rich Espresso"     },
-      { id: "prod-04", name: "Sculptural Liquid Gold Gown",        price: 185, image: "/images/campaign_02.jpg",             color: "Antique Champagne" },
-      { id: "prod-05", name: "Architectural Wool Fringe Overcoat", price: 180, image: "/images/campaign_03.jpg",             color: "Obsidian Black"    }
+      ...SHOP_PRODUCTS,
+      { id: "prod-01", name: "Cascading Fringe Batwing Dress",     price: 200, image: "/images/product_fringe_dress.jpg",    color: "Ivory White"       },
+      { id: "prod-02", name: "Cylindrical Metallic Minaudière",    price: 200, image: "/images/product_cylinder_clutch.jpg", color: "Mirror Silver"     },
+      { id: "prod-03", name: "Draped Silk Fringe Tunic Dress",     price: 200, image: "/images/campaign_01.jpg",             color: "Rich Espresso"     },
+      { id: "prod-04", name: "Sculptural Liquid Gold Gown",        price: 200, image: "/images/campaign_02.jpg",             color: "Antique Champagne" },
+      { id: "prod-05", name: "Architectural Wool Fringe Overcoat", price: 200, image: "/images/campaign_03.jpg",             color: "Obsidian Black"    }
     ];
-    const prod = catalog.find((p) => p.id === productId) || {
-      id: productId, name: "Luxury Piece", price: 150, image: "/images/campaign_01.jpg"
-    };
+    const prod = isObj ? productOrId : (catalog.find((p) => p.id === productId) || {
+      id: productId, name: "Fringe Top", price: 200, image: "/images/fringe_top.jpg"
+    });
 
     setCartData((prev) => {
       const items = [...(prev?.items || [])];
-      const idx   = items.findIndex((i) => i.productId === productId);
+      const idx   = items.findIndex((i) => i.productId === prod.id);
       if (idx > -1) {
         items[idx] = { ...items[idx], quantity: items[idx].quantity + 1 };
       } else {
         items.push({
           id: `cart-item-${Date.now()}`, productId: prod.id,
           name: prod.name, color: prod.color || "Ivory White",
-          size: "FR 36", price: prod.price, quantity: 1, image: prod.image
+          size: "FR 36", price: prod.price || 200, quantity: 1, image: prod.image
         });
       }
       const itemCount = items.reduce((s, i) => s + i.quantity, 0);
-      const subtotal  = items.reduce((s, i) => s + i.price * i.quantity, 0);
+      const subtotal  = items.reduce((s, i) => s + (prod.price || 200) * i.quantity, 0);
       const threshold = Number(prev?.freeShippingThreshold) || 300;
       const qualifies = subtotal >= threshold;
       return {
@@ -228,20 +256,38 @@ export default function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${isShopView ? 'shop-mode' : ''}`}>
       {/* 01: Top Announcement Bar */}
       <AnnouncementBar text={announcement?.message || "Free shipping for orders over $300"} />
 
-      {/* Main Hero Container */}
-      <div className="hero-viewport">
-        <Header
+      {/* Main Viewport: Shop Page (#shop) or Hero Slideshow (Home) */}
+      {isShopView ? (
+        <ShopPage
           onOpenMenu={() => setIsMenuOpen(true)}
           onOpenSearch={() => setIsSearchOpen(true)}
           onOpenBag={() => setIsBagOpen(true)}
           cartCount={cartData?.itemCount || 0}
+          onAddToCart={handleAddToCart}
+          onNavigateHome={() => {
+            window.location.hash = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
         />
-        <HeroSlideshow slides={slides} />
-      </div>
+      ) : (
+        <div className="hero-viewport">
+          <Header
+            onOpenMenu={() => setIsMenuOpen(true)}
+            onOpenSearch={() => setIsSearchOpen(true)}
+            onOpenBag={() => setIsBagOpen(true)}
+            cartCount={cartData?.itemCount || 0}
+            theme="overlay"
+            onLogoClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
+          <HeroSlideshow slides={slides} />
+        </div>
+      )}
 
       {/* Slide-out Drawers & Modals */}
       <NavigationDrawer
