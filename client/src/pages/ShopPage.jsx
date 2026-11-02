@@ -67,7 +67,7 @@ export default function ShopPage({
               return (
                 <article key={product.id} className="shop-product-card">
                   {/* Portrait Card Image (clickable to view product details) */}
-                  <div 
+                  <div
                     className="shop-product-media-box clickable"
                     onClick={() => handleProductClick(product)}
                     role="button"
@@ -85,7 +85,7 @@ export default function ShopPage({
 
                   {/* 04: PRODUCT DETAILS (Left-align product name, $200 and Add to Bag beneath each image) */}
                   <div className="shop-product-meta">
-                    <h2 
+                    <h2
                       className="shop-product-title clickable"
                       onClick={() => handleProductClick(product)}
                       role="button"
@@ -95,7 +95,7 @@ export default function ShopPage({
                       {product.name}
                     </h2>
                     <p className="shop-product-price">{product.priceFormatted || `$${product.price}`}</p>
-                    
+
                     <div className="shop-product-action-wrapper">
                       <button
                         type="button"

@@ -1795,20 +1795,31 @@ body.wistoria-menu-open .slide-arrow-btn {
    REFERENCE 03A: SHOP PAGE (MOBILE & DESKTOP VIEWS)
    ============================================================ */
 
-/* Container adjustment when shop view is active */
-.app-container.shop-mode {
-  height: auto;
+/* Container adjustment when shop or product view is active */
+.app-container.shop-mode,
+.app-container.product-mode {
+  height: auto !important;
   min-height: 100vh;
   min-height: 100dvh;
-  overflow-y: auto;
+  overflow-y: visible !important;
   overflow-x: hidden;
   background-color: #ffffff;
 }
 
-body.shop-view-active {
+body.shop-view-active,
+body.product-view-active {
   background-color: #ffffff !important;
   color: #111111;
-  overflow-y: auto;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  height: auto !important;
+  min-height: 100vh;
+}
+
+html:has(body.shop-view-active),
+html:has(body.product-view-active) {
+  overflow-y: auto !important;
+  height: auto !important;
 }
 
 /* Light header for Shop Page (Annotation 01: Brand Header) */
@@ -2249,8 +2260,14 @@ body.shop-view-active {
 }
 
 @media (min-width: 900px) {
+  .product-gallery-section {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+  }
+
   .product-slide-frame {
-    max-height: 82vh;
+    max-height: 75vh;
     border-radius: 2px;
   }
 }
@@ -2361,8 +2378,7 @@ body.shop-view-active {
 @media (min-width: 900px) {
   .product-details-section {
     padding: 12px 0 40px 0;
-    position: sticky;
-    top: 70px;
+    position: relative;
   }
 }
 

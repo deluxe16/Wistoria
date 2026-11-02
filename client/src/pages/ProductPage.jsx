@@ -43,9 +43,10 @@ export default function ProductPage({
   // Adding feedback state
   const [isAdding, setIsAdding] = useState(false);
 
-  // Touch swipe support for mobile gallery (Reference 04A Annotation 02)
+  // Touch & Mouse swipe support for gallery (Reference 04A Annotation 02)
   const touchStartXRef = useRef(0);
   const touchEndXRef = useRef(0);
+  const isMouseDownRef = useRef(false);
   const [swipeDeltaX, setSwipeDeltaX] = useState(0);
   const [isSwiping, setIsSwiping] = useState(false);
 
@@ -53,6 +54,21 @@ export default function ProductPage({
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [product.id]);
+
+  // Keyboard navigation for desktop gallery
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Don't trigger if user is typing in an input
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowLeft') {
+        setActiveImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+      } else if (e.key === 'ArrowRight') {
+        setActiveImageIndex((prev) => (prev + 1) % galleryImages.length);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [galleryImages.length]);
 
   const handleTouchStart = (e) => {
     touchStartXRef.current = e.touches[0].clientX;
@@ -78,6 +94,36 @@ export default function ProductPage({
         setActiveImageIndex((prev) => (prev + 1) % galleryImages.length);
       } else {
         // Swipe right -> prev image
+        setActiveImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+      }
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    isMouseDownRef.current = true;
+    touchStartXRef.current = e.clientX;
+    touchEndXRef.current = e.clientX;
+    setIsSwiping(true);
+    setSwipeDeltaX(0);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isMouseDownRef.current) return;
+    touchEndXRef.current = e.clientX;
+    const delta = touchEndXRef.current - touchStartXRef.current;
+    setSwipeDeltaX(Math.max(-80, Math.min(80, delta)));
+  };
+
+  const handleMouseUp = () => {
+    if (!isMouseDownRef.current) return;
+    isMouseDownRef.current = false;
+    const diff = touchStartXRef.current - touchEndXRef.current;
+    setIsSwiping(false);
+    setSwipeDeltaX(0);
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        setActiveImageIndex((prev) => (prev + 1) % galleryImages.length);
+      } else {
         setActiveImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
       }
     }
@@ -161,6 +207,19 @@ export default function ProductPage({
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={() => {
+              if (isMouseDownRef.current) {
+                isMouseDownRef.current = false;
+                setIsSwiping(false);
+                setSwipeDeltaX(0);
+              }
+            }}
+            style={{
+              cursor: galleryImages.length > 1 ? (isSwiping ? 'grabbing' : 'grab') : 'default'
+            }}
           >
             {/* Main Active Slide */}
             <div className="product-slide-frame">
