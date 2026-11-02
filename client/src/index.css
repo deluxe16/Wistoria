@@ -230,11 +230,12 @@ a {
   text-decoration: none;
   background: none;
   border: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2);
 }
 
 .wistoria-brand:hover {
-  opacity: 0.9;
+  opacity: 1;
+  transform: scale(1.12);
 }
 
 .wistoria-logo-img {
@@ -247,11 +248,11 @@ a {
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: auto;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1.2);
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2);
 }
 
 .wistoria-brand:hover .wistoria-logo-img {
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
 @media (max-width: 768px) {
@@ -507,19 +508,20 @@ a {
   align-items: center;
   flex-wrap: nowrap;
   white-space: nowrap;
-  gap: 6px;
+  gap: 7px;
   font-family: var(--font-sans);
   text-decoration: none;
   outline: none;
   line-height: 1;
   vertical-align: middle;
   flex-shrink: 0;
+  transform-origin: left center;
   transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2), opacity 0.2s ease;
 }
 
 .wistoria-menu-back-btn:hover {
-  transform: scale(1.22) translateX(-3px);
-  opacity: 0.75;
+  transform: scale(1.15) translateX(-2px);
+  opacity: 1;
 }
 
 .menu-back-chevron-svg {
@@ -534,11 +536,12 @@ a {
 }
 
 .menu-back-label {
-  font-family: inherit;
+  font-family: var(--font-sans);
   font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
+  font-weight: 350;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #1a1a1a;
   line-height: 1;
   display: inline-block;
   vertical-align: middle;
@@ -592,12 +595,13 @@ a {
   color: #1a1a1a;
   text-decoration: none;
   display: inline-block;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform-origin: left center;
+  transition: opacity 0.2s ease, transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2);
 }
 
 .wistoria-menu-link:hover {
-  opacity: 0.55;
-  transform: translateX(2px);
+  opacity: 1;
+  transform: scale(1.15) translateX(4px);
 }
 
 /* Transparent bottom space allowing the actual homepage image to continue seamlessly */
@@ -629,6 +633,11 @@ body.wistoria-menu-open .slide-arrow-btn {
     padding-bottom: 36px;
     padding-left: 20px;
     gap: 28px;
+  }
+
+  .menu-back-label {
+    font-size: 12px;
+    letter-spacing: 0.16em;
   }
 
   .wistoria-menu-link {
@@ -1891,6 +1900,12 @@ body.shop-view-active {
   color: #111111;
   margin: 0 0 10px 0;
   line-height: 1.2;
+  display: inline-block;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1.2);
+}
+
+.shop-intro-title:hover {
+  transform: scale(1.08);
 }
 
 @media (min-width: 769px) {
@@ -2135,4 +2150,664 @@ body.shop-view-active {
   font-weight: 300;
   letter-spacing: 0.05em;
   color: #999999;
+}
+
+
+/* ============================================================ */
+/* PRODUCT DETAIL PAGE (REFERENCE 04A, 04B, 04C, 04D)           */
+/* ============================================================ */
+
+.product-page-wrapper {
+  background-color: #ffffff;
+  color: #111111;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-garamond);
+}
+
+/* Breadcrumb / Back button */
+.product-breadcrumb-bar {
+  padding: 14px 20px 6px 20px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 900px) {
+  .product-breadcrumb-bar {
+    padding: 20px 48px 10px 48px;
+  }
+}
+
+.product-back-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 450;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #555555;
+  padding: 6px 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.product-back-btn:hover {
+  color: #111111;
+  transform: translateX(-3px);
+}
+
+/* Product Main Container */
+.product-main-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 0 60px 0;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+@media (min-width: 900px) {
+  .product-main-container {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    column-gap: 56px;
+    align-items: start;
+    padding: 16px 48px 80px 48px;
+  }
+}
+
+/* ------------------------------------------------------------ */
+/* GALLERY (Reference 04A - Annotation 02)                      */
+/* ------------------------------------------------------------ */
+.product-gallery-section {
+  width: 100%;
+  position: relative;
+}
+
+.product-gallery-slider {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+
+.product-slide-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background-color: #f7f7f6;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .product-slide-frame {
+    max-height: 82vh;
+    border-radius: 2px;
+  }
+}
+
+.product-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-slide-frame:hover .product-main-image {
+    transform: scale(1.025);
+  }
+}
+
+.gallery-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  color: #111111;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+
+.gallery-nav-arrow:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-prev {
+  left: 14px;
+}
+
+.gallery-next {
+  right: 14px;
+}
+
+/* Thumbnail preview strip */
+.product-thumbnails-row {
+  display: flex;
+  gap: 10px;
+  padding: 12px 20px 0 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.product-thumbnails-row::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .product-thumbnails-row {
+    padding: 16px 0 0 0;
+  }
+}
+
+.product-thumb-btn {
+  width: 60px;
+  height: 75px;
+  padding: 0;
+  background: #f4f4f4;
+  border: 1px solid transparent;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.product-thumb-btn.active,
+.product-thumb-btn:hover {
+  opacity: 1;
+  border-color: #111111;
+  transform: scale(1.03);
+}
+
+.product-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ------------------------------------------------------------ */
+/* PRODUCT DETAILS (Reference 04A, 04B, 04C, 04D)               */
+/* ------------------------------------------------------------ */
+.product-details-section {
+  padding: 24px 20px 40px 20px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 900px) {
+  .product-details-section {
+    padding: 12px 0 40px 0;
+    position: sticky;
+    top: 70px;
+  }
+}
+
+/* 03: PRODUCT & 04: SIZE GUIDE (Reference 04A) */
+.product-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.product-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-title {
+  font-family: var(--font-garamond);
+  font-size: 26px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #111111;
+  margin: 0 0 4px 0;
+  line-height: 1.15;
+}
+
+@media (min-width: 900px) {
+  .product-title {
+    font-size: 32px;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+}
+
+.product-price {
+  font-family: var(--font-garamond);
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: #111111;
+  margin: 0;
+}
+
+@media (min-width: 900px) {
+  .product-price {
+    font-size: 20px;
+  }
+}
+
+.product-size-guide-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-garamond);
+  font-style: italic;
+  text-decoration: underline;
+  font-size: 16px;
+  font-weight: 400;
+  color: #111111;
+  cursor: pointer;
+  padding: 2px 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.product-size-guide-btn:hover {
+  opacity: 0.7;
+  transform: translateY(-1px);
+}
+
+/* ------------------------------------------------------------ */
+/* 01: SIZE SELECTION GRID (Reference 04A, 04B, 04C)            */
+/* ------------------------------------------------------------ */
+.product-sizes-block {
+  margin: 20px 0 22px 0;
+}
+
+.product-sizes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .product-sizes-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+}
+
+.product-size-pill {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  border: 1px solid #e2e2e4;
+  border-radius: 4px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.product-size-pill:hover {
+  border-color: #999999;
+  transform: translateY(-1px);
+}
+
+/* Highlight chosen size (Reference 04C - Annotation 01) */
+.product-size-pill.selected {
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border-color: #1c1c1c;
+  font-weight: 500;
+}
+
+.size-hint-text {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #c93b2b;
+  margin: 8px 0 0 0;
+  letter-spacing: 0.03em;
+}
+
+@keyframes shakeAnimation {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.product-sizes-block.shake {
+  animation: shakeAnimation 0.4s ease-in-out;
+}
+
+/* ------------------------------------------------------------ */
+/* 02: PURCHASE BUTTON (Reference 04B & 04C)                     */
+/* ------------------------------------------------------------ */
+.product-purchase-block {
+  margin: 22px 0 26px 0;
+}
+
+.product-action-btn {
+  width: 100%;
+  height: 50px;
+  background-color: #202020;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-action-btn:hover {
+  background-color: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.product-action-btn.adding {
+  background-color: #111111;
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------ */
+/* 03: DESCRIPTION / MORE & LESS (Reference 04B, 04C, 04D)      */
+/* ------------------------------------------------------------ */
+.product-description-block {
+  margin: 26px 0 32px 0;
+  padding-bottom: 6px;
+}
+
+.description-text {
+  font-family: var(--font-garamond);
+  font-size: 16.5px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #2b2b2b;
+  margin: 0 0 10px 0;
+  letter-spacing: 0.01em;
+}
+
+@media (min-width: 900px) {
+  .description-text {
+    font-size: 17.5px;
+    line-height: 1.65;
+  }
+}
+
+.product-facts-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 14px 0 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-fact-item {
+  font-family: var(--font-garamond);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #333333;
+  position: relative;
+  padding-left: 18px;
+}
+
+.product-fact-item::before {
+  content: "•";
+  position: absolute;
+  left: 2px;
+  top: 0;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.description-toggle-link {
+  background: transparent;
+  border: none;
+  font-family: var(--font-garamond);
+  font-size: 16px;
+  font-weight: 300;
+  color: #111111;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 2px 0;
+  margin-top: 4px;
+  display: inline-block;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.description-toggle-link:hover {
+  opacity: 0.65;
+  transform: translateY(-1px);
+}
+
+/* ------------------------------------------------------------ */
+/* 02: ACCORDIONS (Reference 04D - Annotation 02)               */
+/* ------------------------------------------------------------ */
+.product-accordions-group {
+  border-top: 1px solid #e5e5e7;
+  margin-top: 10px;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #e5e5e7;
+}
+
+.accordion-header {
+  width: 100%;
+  background: transparent;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  transition: opacity 0.2s ease;
+}
+
+.accordion-header:hover {
+  opacity: 0.7;
+}
+
+.accordion-title {
+  font-family: var(--font-garamond);
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: #111111;
+}
+
+@media (min-width: 900px) {
+  .accordion-title {
+    font-size: 19px;
+  }
+}
+
+.accordion-chevron {
+  color: #333333;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.accordion-chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  padding: 0 0 20px 0;
+  animation: accordionFadeIn 0.28s ease;
+}
+
+.accordion-content p {
+  font-family: var(--font-garamond);
+  font-size: 15.5px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: #4a4a4a;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+@keyframes accordionFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------ */
+/* SIZE GUIDE MODAL                                             */
+/* ------------------------------------------------------------ */
+.size-guide-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 150;
+  animation: fadeIn 0.25s ease;
+}
+
+.size-guide-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 92%;
+  max-width: 660px;
+  background: #ffffff;
+  color: #111111;
+  z-index: 160;
+  padding: 28px 24px;
+  box-sizing: border-box;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@media (min-width: 769px) {
+  .size-guide-modal {
+    padding: 36px 40px;
+  }
+}
+
+.size-guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e7;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.size-guide-title {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #111111;
+  margin: 0;
+}
+
+.size-guide-close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #111111;
+  padding: 4px;
+  line-height: 1;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.size-guide-close-btn:hover {
+  opacity: 0.6;
+  transform: rotate(90deg);
+}
+
+.size-guide-intro {
+  font-family: var(--font-garamond);
+  font-size: 15px;
+  font-weight: 300;
+  color: #555555;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.size-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.size-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  text-align: left;
+}
+
+.size-table th {
+  padding: 10px 12px;
+  border-bottom: 1px solid #111111;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+.size-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #ebebeb;
+  color: #333333;
+}
+
+.size-table tbody tr:hover td {
+  background-color: #fafaf9;
+}
+
+/* Interactive click states on Shop Page cards */
+.shop-product-media-box.clickable,
+.shop-product-title.clickable {
+  cursor: pointer;
+}
+
+.shop-product-title.clickable:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

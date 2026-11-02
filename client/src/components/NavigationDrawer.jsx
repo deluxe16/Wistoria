@@ -57,19 +57,19 @@ export default function NavigationDrawer({ isOpen, onClose }) {
             >
               <svg 
                 className="menu-back-chevron-svg" 
-                width="13" 
-                height="13" 
+                width="12" 
+                height="12" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
-                strokeWidth="1.9" 
+                strokeWidth="1.6" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
                 aria-hidden="true"
               >
                 <path d="M15 18l-6-6 6-6" />
               </svg>
-              <span className="menu-back-label">home</span>
+              <span className="menu-back-label">HOME</span>
             </button>
 
             <button 

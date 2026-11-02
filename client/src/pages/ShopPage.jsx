@@ -10,17 +10,27 @@ export default function ShopPage({
   onOpenBag,
   cartCount = 0,
   onAddToCart,
-  onNavigateHome
+  onNavigateHome,
+  onSelectProduct
 }) {
   const [addingId, setAddingId] = useState(null);
 
   const handleAddClick = (e, product) => {
     e.preventDefault();
+    e.stopPropagation();
     setAddingId(product.id);
     onAddToCart?.(product);
     setTimeout(() => {
       setAddingId(null);
     }, 900);
+  };
+
+  const handleProductClick = (product) => {
+    if (onSelectProduct) {
+      onSelectProduct(product.id);
+    } else {
+      window.location.hash = `#product/${product.id}`;
+    }
   };
 
   return (
@@ -56,8 +66,15 @@ export default function ShopPage({
 
               return (
                 <article key={product.id} className="shop-product-card">
-                  {/* Portrait Card Image (no stretching or save icons) */}
-                  <div className="shop-product-media-box">
+                  {/* Portrait Card Image (clickable to view product details) */}
+                  <div 
+                    className="shop-product-media-box clickable"
+                    onClick={() => handleProductClick(product)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View details for ${product.name}`}
+                    onKeyDown={(e) => { if (e.key === 'Enter') handleProductClick(product); }}
+                  >
                     <img
                       src={product.image}
                       alt={product.name}
@@ -66,10 +83,18 @@ export default function ShopPage({
                     />
                   </div>
 
-                  {/* 04: PRODUCT DETAILS (Left-align Fringe Top, £200 and Add to Bag beneath each image) */}
+                  {/* 04: PRODUCT DETAILS (Left-align product name, $200 and Add to Bag beneath each image) */}
                   <div className="shop-product-meta">
-                    <h2 className="shop-product-title">{product.name}</h2>
-                    <p className="shop-product-price">{product.priceFormatted || `£${product.price}`}</p>
+                    <h2 
+                      className="shop-product-title clickable"
+                      onClick={() => handleProductClick(product)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => { if (e.key === 'Enter') handleProductClick(product); }}
+                    >
+                      {product.name}
+                    </h2>
+                    <p className="shop-product-price">{product.priceFormatted || `$${product.price}`}</p>
                     
                     <div className="shop-product-action-wrapper">
                       <button

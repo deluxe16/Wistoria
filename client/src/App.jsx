@@ -7,6 +7,7 @@ import SearchModal from './components/SearchModal';
 import ShoppingBagDrawer from './components/ShoppingBagDrawer';
 import CheckoutModal from './components/CheckoutModal';
 import ShopPage from './pages/ShopPage';
+import ProductPage from './pages/ProductPage';
 import { SHOP_PRODUCTS } from './data/shopProducts';
 
 const DEFAULT_ANNOUNCEMENT = {
@@ -107,7 +108,7 @@ export default function App() {
   const [isBagOpen,      setIsBagOpen]      = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
-  // Hash-based routing to support #shop
+  // Hash-based routing to support #shop, #product/:id, and home
   const [currentHash, setCurrentHash] = useState(() => window.location.hash || '');
 
   useEffect(() => {
@@ -118,16 +119,26 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const isShopView = currentHash === '#shop' || currentHash.startsWith('#shop');
+  const isProductView = currentHash.startsWith('#product');
+  const routeProductId = isProductView 
+    ? currentHash.replace(/^#product\/?/, '') || 'prod-liquid-gold-1'
+    : null;
+
+  const isShopView = !isProductView && (currentHash === '#shop' || currentHash.startsWith('#shop'));
 
   useEffect(() => {
-    if (isShopView) {
+    if (isProductView) {
+      document.body.classList.add('product-view-active');
+      document.body.classList.remove('shop-view-active');
+      window.scrollTo(0, 0);
+    } else if (isShopView) {
       document.body.classList.add('shop-view-active');
+      document.body.classList.remove('product-view-active');
       window.scrollTo(0, 0);
     } else {
-      document.body.classList.remove('shop-view-active');
+      document.body.classList.remove('shop-view-active', 'product-view-active');
     }
-  }, [isShopView]);
+  }, [isShopView, isProductView, routeProductId]);
 
   /* ── Fetch backend data ─────────────────────────────────── */
   useEffect(() => {
@@ -167,12 +178,13 @@ export default function App() {
   const handleAddToCart = async (productOrId) => {
     const isObj = typeof productOrId === 'object' && productOrId !== null;
     const productId = isObj ? productOrId.id : productOrId;
+    const chosenSize = (isObj && productOrId.size) ? productOrId.size : 'FR 36';
 
     try {
       const res = await fetch('/api/cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId, size: 'FR 36' })
+        body: JSON.stringify({ productId, size: chosenSize })
       });
       if (res.ok) {
         const data = await res.json();
@@ -192,19 +204,19 @@ export default function App() {
       { id: "prod-05", name: "Architectural Wool Fringe Overcoat", price: 200, image: "/images/campaign_03.jpg",             color: "Obsidian Black"    }
     ];
     const prod = isObj ? productOrId : (catalog.find((p) => p.id === productId) || {
-      id: productId, name: "Fringe Top", price: 200, image: "/images/fringe_top.jpg"
+      id: productId, name: "Sculptural Liquid Gold Gown", price: 200, image: "/images/campaign_02.jpg"
     });
 
     setCartData((prev) => {
       const items = [...(prev?.items || [])];
-      const idx   = items.findIndex((i) => i.productId === prod.id);
+      const idx   = items.findIndex((i) => i.productId === prod.id && i.size === chosenSize);
       if (idx > -1) {
         items[idx] = { ...items[idx], quantity: items[idx].quantity + 1 };
       } else {
         items.push({
           id: `cart-item-${Date.now()}`, productId: prod.id,
           name: prod.name, color: prod.color || "Ivory White",
-          size: "FR 36", price: prod.price || 200, quantity: 1, image: prod.image
+          size: chosenSize, price: prod.price || 200, quantity: 1, image: prod.image
         });
       }
       const itemCount = items.reduce((s, i) => s + i.quantity, 0);
@@ -256,18 +268,40 @@ export default function App() {
   };
 
   return (
-    <div className={`app-container ${isShopView ? 'shop-mode' : ''}`}>
+    <div className={`app-container ${isProductView ? 'product-mode' : isShopView ? 'shop-mode' : ''}`}>
       {/* 01: Top Announcement Bar */}
       <AnnouncementBar text={announcement?.message || "Free shipping for orders over $300"} />
 
-      {/* Main Viewport: Shop Page (#shop) or Hero Slideshow (Home) */}
-      {isShopView ? (
+      {/* Main Viewport: Product Page (#product/:id), Shop Page (#shop), or Hero Slideshow (Home) */}
+      {isProductView ? (
+        <ProductPage
+          key={routeProductId || 'default'}
+          productId={routeProductId}
+          onOpenMenu={() => setIsMenuOpen(true)}
+          onOpenSearch={() => setIsSearchOpen(true)}
+          onOpenBag={() => setIsBagOpen(true)}
+          cartCount={cartData?.itemCount || 0}
+          onAddToCart={handleAddToCart}
+          onNavigateShop={() => {
+            window.location.hash = '#shop';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onNavigateHome={() => {
+            window.location.hash = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        />
+      ) : isShopView ? (
         <ShopPage
           onOpenMenu={() => setIsMenuOpen(true)}
           onOpenSearch={() => setIsSearchOpen(true)}
           onOpenBag={() => setIsBagOpen(true)}
           cartCount={cartData?.itemCount || 0}
           onAddToCart={handleAddToCart}
+          onSelectProduct={(id) => {
+            window.location.hash = `#product/${id}`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
           onNavigateHome={() => {
             window.location.hash = '';
             window.scrollTo({ top: 0, behavior: 'smooth' });

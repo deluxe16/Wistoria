@@ -114,8 +114,26 @@ export default function SearchModal({ isOpen, onClose, onAddToCart }) {
         <div className="search-cards-grid">
           {results.map((prod) => (
             <div key={prod.id} className="search-card">
-              <img src={prod.image} alt={prod.name} className="search-card-thumb" />
-              <div className="search-card-title">{prod.name}</div>
+              <img 
+                src={prod.image} 
+                alt={prod.name} 
+                className="search-card-thumb clickable" 
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  window.location.hash = `#product/${prod.id}`;
+                  onClose();
+                }}
+              />
+              <div 
+                className="search-card-title clickable"
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  window.location.hash = `#product/${prod.id}`;
+                  onClose();
+                }}
+              >
+                {prod.name}
+              </div>
               <div className="search-card-price">${prod.price.toLocaleString()}</div>
               <button 
                 className="search-add-btn" 
