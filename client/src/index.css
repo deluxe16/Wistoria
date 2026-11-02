@@ -2811,3 +2811,287 @@ body.shop-view-active {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+
+/* ============================================================ */
+/* PRODUCT PAGE — MOBILE OVERRIDES (max-width: 899px)           */
+/* Reference 04A, 04B, 04C, 04D — Mobile Views                  */
+/* ============================================================ */
+
+@media (max-width: 899px) {
+
+  /* ── PAGE WRAPPER ───────────────────────────────────────── */
+  .product-page-wrapper {
+    overflow-x: hidden;
+  }
+
+  /* ── BACK BUTTON — compact on mobile ───────────────────── */
+  .product-breadcrumb-bar {
+    padding: 10px 18px 4px 18px;
+  }
+
+  .product-back-btn {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    gap: 6px;
+    color: #444444;
+  }
+
+  /* ── MAIN CONTAINER — single column, NO side padding ────── */
+  /* Reference 04A: gallery fills full viewport width          */
+  .product-main-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 48px 0;
+  }
+
+  /* ── GALLERY ─────────────────────────────────────────────── */
+  .product-gallery-section {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .product-gallery-slider {
+    width: 100%;
+  }
+
+  /* Edge-to-edge portrait image — no border-radius on mobile */
+  .product-slide-frame {
+    aspect-ratio: 4 / 5;
+    border-radius: 0;
+    max-height: none;
+  }
+
+  .product-main-image {
+    border-radius: 0;
+  }
+
+  /* Hide left/right arrows on mobile — swipe is the interaction */
+  .gallery-nav-arrow {
+    display: none;
+  }
+
+  /* ── GALLERY DOT INDICATORS ─────────────────────────────── */
+  /* Hide thumbnail strip on mobile; show dot indicators       */
+  .product-thumbnails-row {
+    display: none !important;
+  }
+
+  /* ── PRODUCT DETAILS PANEL ──────────────────────────────── */
+  .product-details-section {
+    padding: 20px 18px 32px 18px;
+    position: static;       /* no sticky on mobile */
+  }
+
+  /* ── PRODUCT TITLE + SIZE GUIDE ROW ─────────────────────── */
+  .product-header-row {
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .product-title {
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .product-price {
+    font-size: 16px;
+  }
+
+  .product-size-guide-btn {
+    font-size: 14px;
+    white-space: nowrap;
+    padding: 0;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── SIZE GRID ───────────────────────────────────────────── */
+  /* Reference 04A/04B: XXS XS S M | L XL XXL across 4 cols   */
+  .product-sizes-block {
+    margin: 14px 0 18px 0;
+  }
+
+  .product-sizes-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+  }
+
+  .product-size-pill {
+    height: 40px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    border-radius: 3px;
+  }
+
+  .size-hint-text {
+    font-size: 11px;
+    margin-top: 6px;
+  }
+
+  /* ── PURCHASE BUTTON ─────────────────────────────────────── */
+  /* Reference 04B/04C: full-width dark button                  */
+  .product-purchase-block {
+    margin: 16px 0 20px 0;
+  }
+
+  .product-action-btn {
+    height: 48px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    border-radius: 3px;
+  }
+
+  /* Disable lift-hover transform on touch devices */
+  .product-action-btn:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ── DESCRIPTION ─────────────────────────────────────────── */
+  /* Reference 04B/04D: truncated with "More" underline link    */
+  .product-description-block {
+    margin: 20px 0 24px 0;
+    padding-bottom: 4px;
+  }
+
+  .description-text {
+    font-size: 15.5px;
+    line-height: 1.58;
+  }
+
+  .product-facts-list {
+    margin: 12px 0 12px 0;
+    gap: 6px;
+  }
+
+  .product-fact-item {
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+
+  .description-toggle-link {
+    font-size: 15px;
+    margin-top: 2px;
+  }
+
+  /* ── ACCORDIONS ──────────────────────────────────────────── */
+  /* Reference 04D: Fit & Size / Care / Delivery & Returns      */
+  .product-accordions-group {
+    margin-top: 8px;
+  }
+
+  .accordion-header {
+    padding: 16px 0;
+  }
+
+  .accordion-title {
+    font-size: 17px;
+  }
+
+  .accordion-content {
+    padding: 0 0 16px 0;
+  }
+
+  .accordion-content p {
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  /* ── SIZE GUIDE MODAL ────────────────────────────────────── */
+  .size-guide-modal {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    max-height: 88vh;
+    border-radius: 14px 14px 0 0;
+    padding: 24px 20px 32px 20px;
+    animation: slideUpModal 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .size-guide-title {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+
+  .size-guide-intro {
+    font-size: 14px;
+  }
+
+  .size-table {
+    font-size: 11px;
+  }
+
+  .size-table th,
+  .size-table td {
+    padding: 8px 8px;
+  }
+}
+
+/* Slide-up animation for size guide on mobile */
+@keyframes slideUpModal {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* ── GALLERY DOT INDICATORS (Mobile only) ───────────────────── */
+/* Shown below the image on mobile as swipe progress indicators   */
+.product-gallery-dots {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .product-gallery-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 0 2px 0;
+  }
+
+  .product-gallery-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #cccccc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .product-gallery-dot.active {
+    background-color: #111111;
+    width: 18px;
+    border-radius: 3px;
+  }
+}
+
+/* Extra small phones (< 380px) */
+@media (max-width: 380px) {
+  .product-sizes-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+
+  .product-size-pill {
+    height: 36px;
+    font-size: 11px;
+  }
+
+  .product-title {
+    font-size: 19px;
+  }
+
+  .product-size-guide-btn {
+    font-size: 12px;
+  }
+}

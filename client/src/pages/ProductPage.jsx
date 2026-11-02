@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Header from '../components/Header';
 import { SHOP_PRODUCTS } from '../data/shopProducts';
 
@@ -46,6 +46,8 @@ export default function ProductPage({
   // Touch swipe support for mobile gallery (Reference 04A Annotation 02)
   const touchStartXRef = useRef(0);
   const touchEndXRef = useRef(0);
+  const [swipeDeltaX, setSwipeDeltaX] = useState(0);
+  const [isSwiping, setIsSwiping] = useState(false);
 
   // Scroll to top when product mounts or changes
   useEffect(() => {
@@ -54,14 +56,22 @@ export default function ProductPage({
 
   const handleTouchStart = (e) => {
     touchStartXRef.current = e.touches[0].clientX;
+    touchEndXRef.current = e.touches[0].clientX;
+    setIsSwiping(true);
+    setSwipeDeltaX(0);
   };
 
   const handleTouchMove = (e) => {
     touchEndXRef.current = e.touches[0].clientX;
+    const delta = touchEndXRef.current - touchStartXRef.current;
+    // Clamp visual feedback to ±80px
+    setSwipeDeltaX(Math.max(-80, Math.min(80, delta)));
   };
 
   const handleTouchEnd = () => {
     const diff = touchStartXRef.current - touchEndXRef.current;
+    setIsSwiping(false);
+    setSwipeDeltaX(0);
     if (Math.abs(diff) > 45) {
       if (diff > 0) {
         // Swipe left -> next image
@@ -159,6 +169,12 @@ export default function ProductPage({
                 alt={`${product.name} - photograph ${activeImageIndex + 1}`}
                 className="product-main-image"
                 loading="eager"
+                style={{
+                  transform: isSwiping && swipeDeltaX !== 0 
+                    ? `translateX(${swipeDeltaX * 0.15}px)` 
+                    : undefined,
+                  transition: isSwiping ? 'none' : 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
               />
 
               {/* Gallery Controls (Chevrons) */}
@@ -188,7 +204,7 @@ export default function ProductPage({
               )}
             </div>
 
-            {/* Thumbnail preview strip on desktop / peek indicator on mobile */}
+            {/* Thumbnail preview strip (desktop) */}
             {galleryImages.length > 1 && (
               <div className="product-thumbnails-row">
                 {galleryImages.map((imgUrl, idx) => (
@@ -201,6 +217,21 @@ export default function ProductPage({
                   >
                     <img src={imgUrl} alt="" className="product-thumb-img" />
                   </button>
+                ))}
+              </div>
+            )}
+
+            {/* Dot indicators (mobile only — swipe to navigate) */}
+            {galleryImages.length > 1 && (
+              <div className="product-gallery-dots" aria-hidden="true">
+                {galleryImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    className={`product-gallery-dot ${idx === activeImageIndex ? 'active' : ''}`}
+                    onClick={() => setActiveImageIndex(idx)}
+                    aria-label={`View photograph ${idx + 1}`}
+                  />
                 ))}
               </div>
             )}
