@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 export default function ShoppingBagDrawer({ isOpen, onClose, cartData = {}, onUpdateQty, onProceedCheckout }) {
@@ -12,6 +12,36 @@ export default function ShoppingBagDrawer({ isOpen, onClose, cartData = {}, onUp
 
   // Which item's + button is currently spinning
   const [spinningId, setSpinningId] = useState(null);
+
+  // Lock body scroll and prevent touch-move leakage to background when bag is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('wistoria-bag-open');
+
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') onClose();
+      };
+
+      const preventBackgroundTouch = (e) => {
+        const drawer = document.querySelector('.bag-side-drawer');
+        if (drawer && drawer.contains(e.target)) {
+          return; // Allow touch/scroll inside the shopping bag drawer
+        }
+        e.preventDefault(); // Prevent touch/scroll on backdrop and background
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('touchmove', preventBackgroundTouch, { passive: false });
+
+      return () => {
+        document.body.classList.remove('wistoria-bag-open');
+        window.removeEventListener('keydown', handleKeyDown);
+        document.removeEventListener('touchmove', preventBackgroundTouch);
+      };
+    } else {
+      document.body.classList.remove('wistoria-bag-open');
+    }
+  }, [isOpen, onClose]);
 
   const safeSubtotal   = Number(subtotal) || 0;
   const safeThreshold  = Number(freeShippingThreshold) || 300;
