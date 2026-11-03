@@ -436,11 +436,9 @@ body.wistoria-bag-open {
   overscroll-behavior: none !important;
 }
 
-body.wistoria-bag-open .app-container > :not(.bag-side-drawer):not(.backdrop-dim),
+body.wistoria-bag-open .hero-viewport,
 body.wistoria-bag-open .product-page-wrapper,
 body.wistoria-bag-open .shop-page-wrapper,
-body.wistoria-bag-open .hero-viewport,
-body.wistoria-bag-open .hero-header,
 body.wistoria-bag-open .announcement-bar {
   pointer-events: none !important;
   user-select: none !important;
@@ -684,6 +682,7 @@ body.wistoria-menu-open .slide-arrow-btn {
   flex-direction: column;
   padding: 24px 26px;
   box-sizing: border-box;
+  overflow: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   pointer-events: auto !important;
@@ -812,18 +811,40 @@ body.wistoria-menu-open .slide-arrow-btn {
 .qty-pill {
   display: flex;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 2px;
 }
 
 .qty-step-btn {
-  padding: 2px 8px;
-  font-size: 13px;
+  width: 28px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.qty-step-btn:hover {
+  opacity: 0.75;
+}
+
+.qty-step-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .qty-num {
-  padding: 2px 8px;
-  font-size: 11px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.02em;
 }
 
 .cart-prod-price {
@@ -853,21 +874,26 @@ body.wistoria-menu-open .slide-arrow-btn {
     padding: 18px 20px 24px 20px !important;
     box-sizing: border-box;
     overscroll-behavior: contain;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
   }
 
-  .drawer-top-row {
+  .bag-side-drawer .drawer-top-row {
     margin-bottom: 14px;
     padding-bottom: 10px;
     padding-top: 6px;
+    flex-shrink: 0;
   }
 
-  .shipping-calc-card {
+  .bag-side-drawer .shipping-calc-card {
     padding: 10px 14px;
     margin-bottom: 14px;
+    flex-shrink: 0;
   }
 
-  .cart-items-wrap {
-    flex: 1;
+  .bag-side-drawer .cart-items-wrap {
+    flex: 1 1 0%;
     min-height: 0;
     max-height: none !important;
     overflow-y: auto;
@@ -875,12 +901,13 @@ body.wistoria-menu-open .slide-arrow-btn {
     -webkit-overflow-scrolling: touch;
   }
 
-  .bag-bottom-panel {
+  .bag-side-drawer .bag-bottom-panel {
     padding-top: 14px;
     margin-top: 6px;
+    flex-shrink: 0;
   }
 
-  .subtotal-line {
+  .bag-side-drawer .subtotal-line {
     margin-bottom: 12px;
   }
 }
@@ -1800,7 +1827,7 @@ body.wistoria-menu-open .slide-arrow-btn {
 /* -- Qty pill spinner (drawer) ------------------------------- */
 .qty-center-cell {
   width: 32px;
-  height: 32px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
